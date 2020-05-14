@@ -19,7 +19,8 @@ from .models import Poll, UserProfile, Question, CheckedPoll
 """
 
 # cache = redis.Redis(host=os.environ.get('REDIS_URL'), port=6379)
-cache = redis.from_url(host=os.environ.get('REDIS_URL'), port=6379)
+cache = redis.from_url(os.environ.get("REDIS_URL"))
+# r = redis.from_url(os.environ.get("REDIS_URL"))
 
 # class PollList(SuccessMessageMixin, LoginRequiredMixin, ListView):  
 class PollList(LoginRequiredMixin, ListView):  
