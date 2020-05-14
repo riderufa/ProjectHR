@@ -62,10 +62,16 @@ def check_poll(request, pk):
     # опрос не начинали проходить
     if not poll_pk: 
         # Проверка одновременности опросов
-        for key in cache.keys():
-            if key.decode('utf-8').endswith('u' + str(request.user.pk) + 'time'):
-                messages.add_message(request, messages.INFO, 'Вы должны закончить ранее начатый опрос.', extra_tags='alert-danger')
-                return redirect(reverse_lazy('poll:index'))
+        try:
+            cache.keys()
+        except UnicodeError:
+            messages.add_message(request, messages.INFO, 'Вы должны закончить ранее начатый опрос.', extra_tags='alert-danger')
+            return redirect(reverse_lazy('poll:index'))
+        else:
+            for key in cache.keys():
+                if key.decode('utf-8').endswith('u' + str(request.user.pk) + 'time'):
+                    messages.add_message(request, messages.INFO, 'Вы должны закончить ранее начатый опрос.', extra_tags='alert-danger')
+                    return redirect(reverse_lazy('poll:index'))
         cache.set(f'p{new_poll.pk}u{request.user.pk}', pickle.dumps(new_poll.pk)) # Сохранем в redis метку начала прохождения опроса (хранится постоянно)
         cache.set(f'pu{request.user.pk}', pickle.dumps(new_poll.pk)) # Сохраняем в redis pk объекта CheckedPoll (хранится только в сессии)
         cache.set(f'p{new_poll.pk}u{request.user.pk}time', pickle.dumps(new_poll.pk), ex=poll.time_limit) # , ex=poll.time_limit # Сохраняем в redis pk объекта CheckedPoll со временем (хранится до окончания опроса)
