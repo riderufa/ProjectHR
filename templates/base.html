@@ -135,7 +135,8 @@
                 timerPoll.classList.remove("badge-secondary")
                 timerPoll.classList.add("badge-danger")
                 $.ajax({
-                    url: 'http://127.0.0.1:8000/poll/stat/',
+                    //url: 'http://127.0.0.1:8000/poll/stat/',
+                    url: 'https://afternoon-journey-18114.herokuapp.com/poll/stat/',
                     data: {newPollPk: newPollPk},
                     dataType: "html"
                 });

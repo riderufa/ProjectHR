@@ -21,6 +21,8 @@ LOGIN_URL = 'login'
 
 LOGIN_REDIRECT_URL = reverse_lazy('poll:index')
 LOGOUT_REDIRECT_URL = reverse_lazy('poll:index')
+
+REDIS_URL = 'localhost'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
