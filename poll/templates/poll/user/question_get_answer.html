@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        {% if messages %}
+            {% for message in messages %}
+            <P {% if message.tags %} class="col-12 mt-5 alert {{ message.tags }}" {% endif %} role="alert">
+                {{ message }}
+            </p>
+            {% endfor %}
+        {% endif %}
+
+        <div class="col-12 mt-5">
+            <p id="ttl_poll" hidden="true">{{ ttl_poll }}</p>
+            <p id="ttl_question" hidden="true">{{ ttl_question }}</p>
+            <p id="question_pk" hidden="true">{{ pk }}</p>
+            <div class="card">
+                {% if question.image %}
+                <img src="{{ question.image.url }}" class="card-img-top" alt="..." style="max-width: 540px;">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ question.text }}</h5>
+                    <ul class="list-group mt-3">
+                        {% if not answers %}
+                        {% for answer in question.answers.all %}
+                        <li class="list-group-item">
+                            {% if question.type == 2 %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="{{ forloop.counter0 }}">
+                                <label class="form-check-label" for="{{ forloop.counter0 }}">
+                                    {{ answer.text }}
+                                </label>
+                            </div>
+                            {% endif %}
+                            {% if question.type == 1 %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios"
+                                    id="{{ forloop.counter0 }}" value="option{{ forloop.counter0 }}">
+                                <label class="form-check-label" for="{{ forloop.counter0 }}">
+                                    {{ answer.text }}
+                                </label>
+                            </div>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                        {% endif %}
+
+                        {% if answers %}
+                        {% for answer in answers.all %}
+                        <li class="list-group-item">
+
+                            {% if question.type == 2 %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="{{ forloop.counter0 }}"
+                                    {% if answer.checked %} checked {% endif %}>
+                                <label class="form-check-label" for="{{ forloop.counter0 }}">
+                                    {{ answer.answer.text }}
+                                </label>
+                            </div>
+                            {% endif %}
+
+                            {% if question.type == 1 %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios"
+                                    id="{{ forloop.counter0 }}" value="option{{ forloop.counter0 }}"
+                                    {% if answer.checked %} checked {% endif %}>
+                                <label class="form-check-label" for="{{ forloop.counter0 }}">
+                                    {{ answer.answer.text }}
+                                </label>
+                            </div>
+                            {% endif %}
+
+                        </li>
+                        {% endfor %}
+                        {% endif %}
+
+                    </ul>
+                    <div class="col-12 mt-3">
+                        <a onclick="save_answer()" class="btn btn-outline-success btn-sm"
+                            href="{{ return_path }}">Ответить</a>
+                        <a class="btn btn-outline-secondary btn-sm" href="{{ return_path }}">Вернуться к списку
+                            вопросов</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    // Запись ответов в базу
+    function save_answer() {
+        let l = document.querySelectorAll('.form-check-input').length;
+        let pk = document.querySelector('#question_pk').innerHTML;
+        let checked = '';
+        for (let i = 0; i < l; i++) {
+            if (document.getElementById(i).checked) {
+                checked += '1';
+            } else {
+                checked += '0'
+            }
+
+        };
+
+        $.ajax({
+            url: 'add/',
+            data: { checked: checked, pk: pk },
+            dataType: "html"
+        });
+    }
+
+</script>
+
+{% endblock %}
