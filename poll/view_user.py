@@ -65,8 +65,7 @@ def check_poll(request, pk):
         try:
             cache.keys()
         except UnicodeError:
-            messages.add_message(request, messages.INFO, 'Вы должны закончить ранее начатый опрос.', extra_tags='alert-danger')
-            return redirect(reverse_lazy('poll:index'))
+            pass
         else:
             for key in cache.keys():
                 if key.decode('utf-8').endswith('u' + str(request.user.pk) + 'time'):
