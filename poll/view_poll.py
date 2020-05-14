@@ -50,7 +50,13 @@ class PollList(LoginRequiredMixin, ListView):
             poll_pk = cache.get(f'pu{self.request.user.pk}')
         ttl_poll = 0
         if poll_pk:
-            ttl_poll = cache.ttl(f'p{pickle.loads(poll_pk)}u{self.request.user.pk}time')
+            try:
+                cache.ttl(f'p{pickle.loads(poll_pk)}u{self.request.user.pk}time')
+            except UnicodeError:
+                ttl_poll = 0
+            else:
+                ttl_poll = cache.ttl(f'p{pickle.loads(poll_pk)}u{self.request.user.pk}time')
+            # ttl_poll = cache.ttl(f'p{pickle.loads(poll_pk)}u{self.request.user.pk}time')
             context['new_poll_pk'] = pickle.loads(poll_pk)
         context['ttl_poll'] = ttl_poll
         return context
