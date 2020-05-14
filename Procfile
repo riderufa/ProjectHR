@@ -1,1 +1,1 @@
-web: gunicorn yourapp-name.wsgi
+web: gunicorn hr.wsgi
