@@ -44,7 +44,7 @@ class PollList(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         try:
             cache.get(f'pu{self.request.user.pk}')
-        except:
+        except UnicodeError:
             poll_pk = ''
         else:
             poll_pk = cache.get(f'pu{self.request.user.pk}')

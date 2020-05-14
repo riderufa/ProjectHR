@@ -9,9 +9,10 @@ class ProfileCreationForm(forms.ModelForm):
     """
     Форма создания профиля пользователя
     """
+    # type_user = forms.ModelChoiceField(label='Тип', queryset=UserProfile.objects.all(), widget=forms.widgets.Select(attrs={'size': 1}), disabled=True)
     class Meta:  
         model = UserProfile  
-        fields = ['age']
+        fields = ['age',]
 
 
 class QuestionForm(forms.ModelForm):

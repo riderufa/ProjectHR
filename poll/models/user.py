@@ -10,7 +10,7 @@ class UserProfile(models.Model):
         USER = 2
 
     user = models.OneToOneField(User, on_delete=models.CASCADE) # Ссылка на класс User
-    type_user = models.IntegerField('тип пользователя', choices=TypeOfUser.choices, null=True, blank=True) # Тип пользователя
+    type_user = models.IntegerField('тип пользователя', choices=TypeOfUser.choices, null=True, blank=True, default=2) # Тип пользователя
     age = models.IntegerField('возраст') # Возраст
 
     def __str__(self):

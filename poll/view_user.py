@@ -44,7 +44,13 @@ def check_poll(request, pk):
         new_poll = CheckedPoll.objects.create(poll=poll, user=user)
     
     # Проверка наличия в redis метки начала прохождения опроса
-    poll_pk = cache.get(f'p{new_poll.pk}u{request.user.pk}')
+    try:
+        cache.get(f'p{new_poll.pk}u{request.user.pk}')
+    except UnicodeError:
+        poll_pk = ''
+    else:
+        poll_pk = cache.get(f'p{new_poll.pk}u{request.user.pk}')
+    # poll_pk = cache.get(f'p{new_poll.pk}u{request.user.pk}')
     
     # опрос не начинали проходить
     if not poll_pk: 
@@ -83,7 +89,13 @@ def question_get_answer(request, pk):
         new_question = CheckedQuestion.objects.create(question=question, poll=poll)
     
     # Проверка наличия в redis метки начала прохождения вопроса
-    question_pk = cache.get(f'q{new_question.pk}p{poll_pk}u{request.user.pk}')
+    try:
+        cache.get(f'q{new_question.pk}p{poll_pk}u{request.user.pk}')
+    except UnicodeError:
+        question_pk = ''
+    else:
+        question_pk = cache.get(f'q{new_question.pk}p{poll_pk}u{request.user.pk}')
+    # question_pk = cache.get(f'q{new_question.pk}p{poll_pk}u{request.user.pk}')
     
     if not question_pk: # вопрос не начинали проходить
         cache.set(f'q{new_question.pk}p{poll_pk}u{request.user.pk}', pickle.dumps(new_question.pk)) # Сохранем в redis метку начала прохождения вопроса (хранится постоянно)
