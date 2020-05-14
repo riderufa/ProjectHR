@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 # from django.forms import modelformset_factory
 from django.contrib import messages
+from django.conf import settings
 
 import redis
 import pickle
@@ -20,7 +21,7 @@ from .models import Poll, UserProfile, Question, CheckedQuestion, CheckedAnswer,
 Контроллеры пользователя
 """
 
-cache = redis.Redis(host='REDIS_URL', port=6379)
+cache = redis.Redis(host=settings.REDIS_URL, port=6379)
 
 
 @login_required

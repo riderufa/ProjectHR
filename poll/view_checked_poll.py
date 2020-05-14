@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # from django.contrib.auth.decorators import login_required
 # from django.urls import reverse_lazy
 # from django.contrib import messages
+from django.conf import settings
 
 import redis
 import pickle
@@ -19,7 +20,7 @@ from .models import CheckedPoll, UserProfile
 Контроллеры пройденных опросов
 """
 
-cache = redis.Redis(host=REDIS_URL, port=6379)
+cache = redis.Redis(host=settings.REDIS_URL, port=6379)
 
 
 class UserCheckedPollList(LoginRequiredMixin, ListView):  
