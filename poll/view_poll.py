@@ -9,6 +9,7 @@ from django.urls import reverse_lazy
 
 import redis
 import pickle
+import os
 
 from .forms import PollForm, PollSetForm, KitForm
 from .models import Poll, UserProfile, Question, CheckedPoll
