@@ -32,7 +32,7 @@ DATABASE_URL = os.environ.get('DATABASE_URL')
 REDIS_URL = os.environ.get('REDIS_URL')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
