@@ -42,12 +42,13 @@ class PollList(LoginRequiredMixin, ListView):
     # Добавляем в контекст данные из редис для контроля времени
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        try:
-            cache.get(f'pu{self.request.user.pk}')
-        except UnicodeError:
-            poll_pk = ''
-        else:
-            poll_pk = cache.get(f'pu{self.request.user.pk}')
+        # try:
+        #     cache.get(f'pu{self.request.user.pk}')
+        # except UnicodeError:
+        #     poll_pk = ''
+        # else:
+        #     poll_pk = cache.get(f'pu{self.request.user.pk}')
+        poll_pk = cache.get('pu{}'.format(self.request.user.pk))
         ttl_poll = 0
         if poll_pk:
             try:
