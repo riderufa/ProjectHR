@@ -94,7 +94,7 @@ DATABASES = {
         'NAME': 'poll_db',
         'USER' : 'postgres',
         'PASSWORD' : 'docker',
-        'HOST' : 'DATABASE_URL',
+        'HOST' : DATABASE_URL,
         'PORT' : '5432',
     }
 }
