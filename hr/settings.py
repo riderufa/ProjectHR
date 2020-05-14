@@ -25,13 +25,16 @@ LOGOUT_REDIRECT_URL = reverse_lazy('poll:index')
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'gy#0=)2s%#ivdf0ei)y$((q@g_y(bwg^6o-ii93u%z(y69ed6m'
+SECRET_KEY = os.environ.get('SECRET_KEY')
+DATABASE_URL = os.environ.get('DATABASE_URL')
+REDIS_URL = os.environ.get('REDIS_URL')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+SITE_ID = 1
 
 # Application definition
 
@@ -91,8 +94,8 @@ DATABASES = {
         'NAME': 'poll_db',
         'USER' : 'postgres',
         'PASSWORD' : 'docker',
-        'HOST' : 'localhost',
-        'PORT' : '5433',
+        'HOST' : 'DATABASE_URL',
+        'PORT' : '5432',
     }
 }
 
@@ -133,12 +136,23 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+# MEDIA_URL = '/media/'
+
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+
+# STATIC_URL = '/static/'
+
+
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
 
 # STATIC_URL = '/asset-v1:SkillFactory+PWS-1+5JUN2019+type@asset+block@/'
 
