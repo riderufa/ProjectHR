@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 
 import redis
 import pickle
-import os
+# import os
 
 from .forms import PollForm, PollSetForm, KitForm
 from .models import Poll, UserProfile, Question, CheckedPoll
@@ -18,8 +18,9 @@ from .models import Poll, UserProfile, Question, CheckedPoll
 Контроллеры опроса
 """
 
-# cache = redis.Redis(host=os.environ.get('REDIS_URL'), port=6379)
-cache = redis.from_url(os.environ.get("REDIS_URL"))
+# cache = redis.Redis(host=REDIS_URL, port=6379)
+cache = redis.Redis(host=REDIS_URL, port=27519)
+# cache = redis.from_url(os.environ.get("REDIS_URL"))
 # r = redis.from_url(os.environ.get("REDIS_URL"))
 
 # class PollList(SuccessMessageMixin, LoginRequiredMixin, ListView):  
