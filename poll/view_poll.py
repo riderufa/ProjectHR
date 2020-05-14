@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 # from django.contrib import messages
 # from django.contrib.messages.views import SuccessMessageMixin
+from django.conf import settings
 
 import redis
 import pickle
@@ -18,8 +19,8 @@ from .models import Poll, UserProfile, Question, CheckedPoll
 Контроллеры опроса
 """
 
-# cache = redis.Redis(host=REDIS_URL, port=6379)
-cache = redis.Redis(host=REDIS_URL, port=27519)
+cache = redis.Redis(host=settings.REDIS_URL, port=6379)
+# cache = redis.Redis(host=REDIS_URL, port=27519)
 # cache = redis.from_url(os.environ.get("REDIS_URL"))
 # r = redis.from_url(os.environ.get("REDIS_URL"))
 
