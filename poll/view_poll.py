@@ -42,7 +42,8 @@ class PollList(LoginRequiredMixin, ListView):
     # Добавляем в контекст данные из редис для контроля времени
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        poll_pk = cache.get(f'pu{self.request.user.pk}')
+        if cache.get(f'pu{self.request.user.pk}'):
+            poll_pk = cache.get(f'pu{self.request.user.pk}')
         ttl_poll = 0
         if poll_pk:
             ttl_poll = cache.ttl(f'p{pickle.loads(poll_pk)}u{self.request.user.pk}time')
