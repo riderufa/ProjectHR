@@ -48,7 +48,7 @@ class PollList(LoginRequiredMixin, ListView):
         #     poll_pk = ''
         # else:
         #     poll_pk = cache.get(f'pu{self.request.user.pk}')
-        poll_pk = cache.get('pu{}'.format(self.request.user.pk))
+        poll_pk = cache.get('pu' + str(self.request.user.pk))
         ttl_poll = 0
         if poll_pk:
             try:
