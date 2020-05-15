@@ -24,7 +24,7 @@ class KitAdmin(admin.TabularInline):
 
 @admin.register(Poll)
 class PollAdmin(admin.ModelAdmin):
-    fields = ['name', 'time_limit', 'date_pub', 'user', 'admin']
+    fields = ['name', 'time_limit', 'date_pub', 'user', 'admin', 'valid_count']
     inlines = (KitAdmin,)
 
 @admin.register(CheckedPoll)

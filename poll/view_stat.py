@@ -32,6 +32,7 @@ def poll_stat():
         # checked_poll_count = CheckedPoll.objects.filter(poll__pk=poll.pk).count()
         valid_poll_count = CheckedPoll.objects.filter(poll__pk=poll.pk, valid=True).count()
         # poll.checked_count = checked_poll_count
+        print(valid_poll_count)
         poll.valid_count = valid_poll_count
         poll.save()
 
