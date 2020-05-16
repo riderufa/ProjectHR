@@ -19,7 +19,7 @@ from .models import Poll, UserProfile, Question, CheckedPoll
 Контроллеры опроса
 """
 
-# cache = redis.Redis(host=settings.REDIS_URL, port=6379)
+# cache = redis.Redis()
 cache = redis.from_url(settings.REDIS_URL)
 
 # class PollList(SuccessMessageMixin, LoginRequiredMixin, ListView):  
@@ -55,7 +55,7 @@ class PollDetail(LoginRequiredMixin, DetailView):
     """
     model = Poll
     template_name = "poll/poll/poll_details.html"
-    queryset = Poll.objects.all().prefetch_related('questions')
+    queryset = Poll.objects.all().prefetch_related('questions').prefetch_related('user')
 
 
 class PollCreate(LoginRequiredMixin, CreateView):

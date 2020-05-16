@@ -131,13 +131,19 @@
 	
         const countDownPoll = () =>  { 
             let total = countSecPoll + countMinPoll * 60;
+            let getQuestion = document.querySelectorAll('#getQuestion')
             timeInterval = setTimeout(countDownPoll, 1000);
             if (total <= 0) {
                 clearTimeout(timeInterval)
                 timerPoll.classList.remove("badge-secondary")
                 timerPoll.classList.add("badge-danger")
+                if (getQuestion) {
+                    getQuestion.forEach(function(item) {
+                        item.classList.add("disabled");
+                    });
+                }
                 $.ajax({
-                    //url: 'http://127.0.0.1:8000/poll/stat/',
+                    // url: 'http://127.0.0.1:8000/poll/stat/',
                     url: 'https://afternoon-journey-18114.herokuapp.com/poll/stat/',
                     data: {newPollPk: newPollPk},
                     dataType: "html"
@@ -160,11 +166,15 @@
 
         const countDownQuestion = () =>  { 
             let total = countSecQuestion + countMinQuestion * 60;
+            let getAnswer = document.querySelector('#getAnswer')
             timeInterval = setTimeout(countDownQuestion, 1000);
             if (total <= 0) {
                 clearTimeout(timeInterval)
                 timerQuestion.classList.remove("badge-secondary")
                 timerQuestion.classList.add("badge-danger")
+                if (getAnswer) {
+                    getAnswer.classList.add("disabled")
+                }
             }
             if (countSecQuestion > 0) {
                 --countSecQuestion;

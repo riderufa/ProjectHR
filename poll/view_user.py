@@ -22,7 +22,7 @@ from .models import Poll, UserProfile, Question, CheckedQuestion, CheckedAnswer,
 """
 
 cache = redis.from_url(settings.REDIS_URL)
-# cache = redis.Redis(host=settings.REDIS_URL, port=6379)
+# cache = redis.Redis()
 
 
 @login_required

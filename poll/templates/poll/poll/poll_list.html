@@ -59,7 +59,8 @@
 						</td>
 						{% else %}
 						<td>
-							<a class="btn btn-secondary btn-sm {% if not poll.user.exists %} disabled {% endif %}"
+							<!-- Блокировка доступа к назначенным опросам -->
+							<a class="btn btn-secondary btn-sm {% if poll.user.exists %} disabled {% endif %}" 
 								href="{% url 'poll:kit_list' pk=poll.pk %}">Редактировать вопросы</a>
 							<a class="btn btn-secondary btn-sm" href="{% url 'poll:poll_set' pk=poll.pk %}">Назначить
 								опрос</a>

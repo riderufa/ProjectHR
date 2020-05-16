@@ -18,6 +18,7 @@ class QuestionList(LoginRequiredMixin, ListView):
     model = Question
     template_name = 'poll/question/question_list.html'
     context_object_name = "questions"
+    queryset = Question.objects.all().prefetch_related('kitquestion')
 
 
 class QuestionDetail(LoginRequiredMixin, DetailView):
@@ -26,7 +27,7 @@ class QuestionDetail(LoginRequiredMixin, DetailView):
     """
     model = Question
     template_name = "poll/question/question_details.html"
-    queryset = Question.objects.all().prefetch_related('answers')
+    queryset = Question.objects.all().prefetch_related('answers').prefetch_related('kitquestion')
 
 
 class QuestionCreate(LoginRequiredMixin, CreateView):
