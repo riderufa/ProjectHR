@@ -21,8 +21,8 @@ from .models import Poll, UserProfile, Question, CheckedQuestion, CheckedAnswer,
 Контроллеры пользователя
 """
 
-cache = redis.from_url(settings.REDIS_URL)
-# cache = redis.Redis()
+# cache = redis.from_url(settings.REDIS_URL)
+cache = redis.Redis()
 
 
 @login_required

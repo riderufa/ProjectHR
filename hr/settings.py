@@ -14,8 +14,6 @@ import os
 
 from django.urls import reverse_lazy
 
-import dj_database_url
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -23,22 +21,19 @@ LOGIN_URL = 'login'
 
 LOGIN_REDIRECT_URL = reverse_lazy('poll:index')
 LOGOUT_REDIRECT_URL = reverse_lazy('poll:index')
+
+REDIS_URL = 'localhost'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
-DATABASE_URL = os.environ.get('DATABASE_URL')
-REDIS_URL = os.environ.get('REDIS_URL')
+SECRET_KEY = 'gy#0=)2s%#ivdf0ei)y$((q@g_y(bwg^6o-ii93u%z(y69ed6m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ADMINS = (('admin', '3434455@mail.ru'),)
+ALLOWED_HOSTS = []
 
-ALLOWED_HOSTS = ['*']
-
-SITE_ID = 1
 
 # Application definition
 
@@ -61,7 +56,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'hr.urls'
@@ -99,13 +93,11 @@ DATABASES = {
         'NAME': 'poll_db',
         'USER' : 'postgres',
         'PASSWORD' : 'docker',
-        'HOST' : DATABASE_URL,
-        'PORT' : '5432',
+        'HOST' : 'localhost',
+        'PORT' : '5433',
     }
 }
 
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -143,28 +135,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-# MEDIA_URL = '/media/'
-
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-
-
-# STATIC_URL = '/static/'
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
 
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-
-
 # STATIC_URL = '/asset-v1:SkillFactory+PWS-1+5JUN2019+type@asset+block@/'
 
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'staticfiles')
+    os.path.join(BASE_DIR, 'static')
 ]
