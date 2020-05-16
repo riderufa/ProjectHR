@@ -20,8 +20,8 @@ from .models import CheckedPoll, UserProfile
 Контроллеры пройденных опросов
 """
 
-# cache = redis.from_url(settings.REDIS_URL)
-cache = redis.Redis()
+cache = redis.from_url(settings.REDIS_URL)
+# cache = redis.Redis()
 
 
 class UserCheckedPollList(LoginRequiredMixin, ListView):  
