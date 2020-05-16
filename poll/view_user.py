@@ -21,8 +21,8 @@ from .models import Poll, UserProfile, Question, CheckedQuestion, CheckedAnswer,
 Контроллеры пользователя
 """
 
-cache = redis.from_url(settings.REDIS_URL)
-# cache = redis.Redis()
+# cache = redis.from_url(settings.REDIS_URL)
+cache = redis.Redis()
 
 
 @login_required
@@ -107,6 +107,9 @@ def question_get_answer(request, pk):
     if CheckedQuestion.objects.filter(poll=poll, question=question).first():
         new_question = CheckedQuestion.objects.prefetch_related('answers').prefetch_related('answers__answer').get(poll=poll, question=question)
         context['answers'] = new_question.answers.all() #.select_related('answer')
+    poll_pk = cache.get(f'pu{request.user.pk}')
+    if poll_pk:
+        context['new_poll_pk'] = pickle.loads(poll_pk)
     return render(request, 'poll/user/question_get_answer.html', context=context)
 
 

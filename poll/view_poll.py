@@ -19,8 +19,8 @@ from .models import Poll, UserProfile, Question, CheckedPoll
 Контроллеры опроса
 """
 
-# cache = redis.Redis()
-cache = redis.from_url(settings.REDIS_URL)
+cache = redis.Redis()
+# cache = redis.from_url(settings.REDIS_URL)
 
 # class PollList(SuccessMessageMixin, LoginRequiredMixin, ListView):  
 class PollList(LoginRequiredMixin, ListView):  
