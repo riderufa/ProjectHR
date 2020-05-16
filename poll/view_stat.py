@@ -32,7 +32,7 @@ def poll_stat():
     Сбор статитстики опроса
     """
     for poll in Poll.objects.all():
-        poll.valid_count = 2
+        poll.valid_count = 3
         poll.save()
     # for poll in Poll.objects.all():
     #     # checked_poll_count = CheckedPoll.objects.filter(poll__pk=poll.pk).count()
