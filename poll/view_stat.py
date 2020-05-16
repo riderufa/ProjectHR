@@ -40,6 +40,7 @@ def poll_stat():
     #     # poll.checked_count = checked_poll_count
     #     poll.valid_count = 0
     #     poll.save()
+    return
 
 
 def question_stat():
@@ -52,6 +53,7 @@ def question_stat():
         # question.checked_count = checked_question_count
         question.valid_count = valid_question_count
         question.save()
+    return
         
 
 def answer_stat():
@@ -65,6 +67,7 @@ def answer_stat():
         answer.checked_count = checked_answers_count
         answer.valid_count = valid_answers_count
         answer.save()
+    return
 
 
 def save_valid_stat():
