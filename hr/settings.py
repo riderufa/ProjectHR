@@ -34,7 +34,7 @@ REDIS_URL = os.environ.get('REDIS_URL')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-# ADMINS = (('admin', '3434455@mail.ru'),)
+ADMINS = (('admin', '3434455@mail.ru'),)
 
 ALLOWED_HOSTS = ['*']
 
