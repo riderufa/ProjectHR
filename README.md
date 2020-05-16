@@ -20,3 +20,4 @@
 4. Bootstrap
 5. Gunicorn
 6. Whitenoise
+7. Heroku
