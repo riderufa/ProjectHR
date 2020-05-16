@@ -17,16 +17,12 @@ def get_stat(request):
     checked_poll = CheckedPoll.objects.get(pk=new_poll_pk)
     checked_poll.checked = True
     checked_poll.save()
-    # poll_stat()
-    print('1')
     save_valid_stat()
-    poll_stat()
     answer_stat()
+    poll_stat()
     question_stat()
     # poll_stat()
-    print('2')
     # poll_stat()
-    print('3')
     
     return redirect(reverse_lazy('poll:index'))
 
@@ -36,7 +32,7 @@ def poll_stat():
     Сбор статитстики опроса
     """
     for poll in Poll.objects.all():
-        poll.valid_count = 1
+        poll.valid_count = 2
         poll.save()
     # for poll in Poll.objects.all():
     #     # checked_poll_count = CheckedPoll.objects.filter(poll__pk=poll.pk).count()
