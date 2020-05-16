@@ -19,8 +19,8 @@ def get_stat(request):
     checked_poll.save()
     save_valid_stat()
     answer_stat()
-    poll_stat()
     question_stat()
+    poll_stat()
     # poll_stat()
     # poll_stat()
     
